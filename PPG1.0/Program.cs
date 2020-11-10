@@ -261,6 +261,17 @@ namespace PPG1._0
                                                 case 1:
                                                     looper = 4;
                                                     currentParking = SearchVehicle(looper);
+                                                    if (currentParking == -1)
+                                                    {
+                                                        if (check == false)
+                                                        {
+                                                            Error();
+                                                            break;
+                                                        }
+                                                        Console.WriteLine("Sorry We could not find your vehicle");
+                                                        Console.ReadKey();
+                                                        break;
+                                                    }
                                                     looper = 4;
                                                     newIndex = ParkingSpotChecker(looper);
                                                     if (newIndex == -1)
@@ -310,6 +321,17 @@ namespace PPG1._0
                                                 case 1:
                                                     looper = 1;
                                                     mcParking = SearchVehicle(looper);
+                                                    if (mcParking == -1)
+                                                    {
+                                                        if (check == false)
+                                                        {
+                                                            Error();
+                                                            break;
+                                                        }
+                                                        Console.WriteLine("Sorry We could not find your vehicle");
+                                                        Console.ReadKey();
+                                                        break;
+                                                    }
                                                     looper = 1;
                                                     newIndex = ParkingSpotChecker(looper);
                                                     if (newIndex == -1)
@@ -320,17 +342,6 @@ namespace PPG1._0
                                                             break;
                                                         }
                                                         Console.WriteLine("Sorry that spot is taken");
-                                                        Console.ReadKey();
-                                                        break;
-                                                    }
-                                                    if (mcParking == -1)
-                                                    {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry We could not find your vehicle");
                                                         Console.ReadKey();
                                                         break;
                                                     }
@@ -478,7 +489,7 @@ namespace PPG1._0
                                 {
                                     case 1:
                                         currentParking = SearchVehicle(looper);
-                                        if (looper == -1)
+                                        if (currentParking == -1)
                                         {
                                             if (check == false)
                                             {
