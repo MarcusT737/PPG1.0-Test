@@ -690,7 +690,8 @@ namespace PPG1._1
         {
             Console.WriteLine("Please input RegNumber (Max 10 characters)");
             regNumber = (Console.ReadLine()).ToUpper();
-            if (regNumber.Length > 10 && regNumber.Length < 1)
+            len = regNumber.Length;
+            if (len > 10 || len < 1)
             {
                 looper = -1;
                 check = false;
@@ -736,7 +737,8 @@ namespace PPG1._1
         {
             Console.WriteLine("Please input RegNumber (Max 10 characters)");
             regNumber = (Console.ReadLine()).ToUpper();
-            if (regNumber.Length > 10 || regNumber.Length < 1)
+            len = regNumber.Length;
+            if (len > 10 || len < 1)
             {
                 looper = -1;
                 check = false;
@@ -780,7 +782,8 @@ namespace PPG1._1
         {
             Console.WriteLine("Please input reg number to search");
             regNumber = (Console.ReadLine()).ToUpper();
-            if (regNumber.Length > 10 || regNumber.Length < 1)
+            len = regNumber.Length;
+            if (len > 10 || len < 1)
             {
                 looper = -1;
                 check = false;
