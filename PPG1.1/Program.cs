@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PPG1._0
+namespace PPG1._1
 {
     public class Program
     {
@@ -432,7 +432,7 @@ namespace PPG1._0
                                         currentParking = SearchVehicle(looper);
                                         if (check == false || currentParking == -1)
                                         {
-                                            if(currentParking == -1)
+                                            if (currentParking == -1)
                                             {
                                                 Console.WriteLine("Your vehicle was not found, please search again");
                                                 Console.ReadKey();
@@ -556,16 +556,69 @@ namespace PPG1._0
                         case 5:
                             Console.Clear();
                             Console.WriteLine("".PadRight(9) + "--Check status of garage--");
-                            Console.WriteLine("Sorry this section is under construction");
-                            Console.ReadKey();
-                            break;
+                            Console.WriteLine("".PadRight(5) + "Would you like to see a list or the map\n");
+                            Console.WriteLine("".PadRight(5) + "1. List of parking spaces");
+                            Console.WriteLine("".PadRight(5) + "2. Map of Garage ");
+                            Console.WriteLine("".PadRight(5) + "3. Return to menu: ");
+                            X = Console.ReadLine();
+                            Checker(X);
+                            if (x < 4 && x > 0)
+                            {
+                                switch (x)
+                                {
+                                    case 1:
+                                        PrintListOfSpaces();
+                                        Console.ReadKey();
+                                        break;
+                                    case 2:
+                                        ParkingMap();
+                                        Console.ReadKey();
+                                        break;
+                                    case 3:
+                                        break;
+                                }
 
+                            }
+                            else
+                            {
+                                Error();
+                            }
+                            break;
                         // ------------------------------------Collect Vehicle Information----------------------------------
                         case 6:
                             Console.Clear();
                             Console.WriteLine("".PadRight(9) + "--Collect Vehicle Information and Price--");
-                            Console.WriteLine("Sorry this section is under construction");
-                            Console.ReadKey();
+                            Console.WriteLine("".PadRight(5) + "Please input Regnumber to see your parking ticket");
+                            Console.WriteLine("".PadRight(5) + "1. Enter Regnumber ");
+                            Console.WriteLine("".PadRight(5) + "2. Return to menu: ");
+                            X = Console.ReadLine();
+                            Checker(X);
+                            if (x < 3 && x > 0)
+                            {
+                                Console.WriteLine("Please input RegNumber (Max 10 characters)");
+                                regNumber = Console.ReadLine();
+                                if (regNumber.Length <= 10)
+                                {
+                                    switch (x)
+                                    {
+                                        case 1:
+                                            Console.WriteLine("Sorry this section is under construction");
+                                            Console.ReadKey();
+                                            break;
+                                        case 2:
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Error();
+                                }
+
+                            }
+                            else
+                            {
+                                Error();
+                            }
                             break;
                         // ------------------------------------Exit Garage----------------------------------
                         case 7:
@@ -801,7 +854,169 @@ namespace PPG1._0
             }
             return looper;
         }
+
+
+        // 5 ---------------------------------------Print Info on Parking spots-----------------------------------
+        //-----------------------------This is only for the map section so is not necessary but for my own visual enjoyment-----------------------------
+
+        public static void PrintListOfSpaces()
+        {
+            ClearConsole();
+            Console.WriteLine("Here is a list of all the parking spaces");
+            Console.WriteLine("Guide: 0 = empty, 1 = One Mc on left side, 2 = One MC on right side; 3 = Two MCS, 4 = Car in Parking");
+            Console.WriteLine();
+            EmptyPark();
+
+            for (index = 0; index < info.Length - 3; index++)
+            {
+                b = (index + 1).ToString("D3");
+                //Padding(b);
+                Console.Write(" {0}. Contains {1}", b, info[index]);
+                index++;
+                b = (index + 1).ToString("D3");
+                a = 15 - (info[index].Length);
+                Console.Write("".PadRight(a) + " {0}. Contains {1}", b, info[index]);
+                index++;
+                b = (index + 1).ToString("D3");
+                a = 15 - (info[index].Length);
+                Console.Write("".PadRight(a) + " {0}. Contains {1}", b, info[index]);
+                Console.WriteLine();
+            }
+            Console.Write(" {0}. Contains {1}", (index + 1), info[index]);
+            RedoArray();
+        }
+
+        //-----------------------------------Turn parking to empty------------------------------------------
+
+        public static int EmptyPark()
+        {
+            for (index = 0; index < info.Length; index++)
+                if (info[index] == "0//")
+                {
+                    info[index] = "0/Empty";
+                }
+            index = 0;
+            return index;
+        }
+
+        //-----------------------------------------Repopulate Array--------------------------------------
+        public static int RedoArray()
+        {
+            for (index = 0; index < info.Length; index++)
+                if (info[index] == "0/Empty")
+                {
+                    info[index] = "0//";
+                }
+            index = 0;
+            return index;
+        }
+
+        //----------------------------------------Parking Map----------------------------------------
+
+        public static void ParkingMap()
+        {
+            ClearConsole();
+            Console.WriteLine("".PadRight(35) + "Map of garage");
+            Console.WriteLine(" O = Empty,  1 = 1 MC, 2 = 2 MC, 3 = Car ");
+            Console.Write("".PadRight(5));
+            for (index = 0; index < 83; index++)
+            {
+                Console.Write("_");
+            }
+            Console.WriteLine();
+            Console.Write("| {0}       |", '\u2193');
+            for (index = 0; index < 16; index++)
+            {
+                string type = info[index];
+                type = TypeCast(type);
+                type = ((index + 1).ToString()) + "-" + type.ToString();
+                Console.Write(type);
+                Console.Write("|");
+            }
+            Console.WriteLine("\n\n");
+            Console.Write("|  ");
+            for (index = 16; index < 33; index++)
+            {
+                string type = info[index];
+                type = TypeCast(type);
+                type = ((index + 1).ToString()) + "-" + type.ToString();
+                Console.Write(type);
+                Console.Write("|");
+            }
+            Console.WriteLine();
+            Console.Write("|  ");
+            for (index = 33; index < 50; index++)
+            {
+                string type = info[index];
+                type = TypeCast(type);
+                type = ((index + 1).ToString()) + "-" + type.ToString();
+                Console.Write(type);
+                Console.Write("|");
+            }
+            Console.WriteLine("\n\n");
+            Console.Write("|  ");
+            for (index = 50; index < 67; index++)
+            {
+                string type = info[index];
+                type = TypeCast(type);
+                type = ((index + 1).ToString()) + "-" + type.ToString();
+                Console.Write(type);
+                Console.Write("|");
+            }
+            Console.WriteLine();
+            Console.Write("|  ");
+            for (index = 67; index < 84; index++)
+            {
+                string type = info[index];
+                type = TypeCast(type);
+                type = ((index + 1).ToString()) + "-" + type.ToString();
+                Console.Write(type);
+                Console.Write("|");
+            }
+            Console.WriteLine("\n\n");
+            Console.Write("|  ");
+            for (index = 84; index < 100; index++)
+            {
+                string type = info[index];
+                type = TypeCast(type);
+                type = ((index + 1).ToString()) + "-" + type.ToString();
+                Console.Write(type);
+                Console.Write("|");
+            }
+            Console.WriteLine(" {0} ", '\u2193');
+            for (index = 0; index < 83; index++)
+            {
+                Console.Write("_");
+            }
+        }
+
+        public static string TypeCast(string type)
+        {
+            if (type.Substring(0, 1) == "0")
+            {
+                type = "O";
+            }
+            if (type.Substring(0, 1) == "1" || type.Substring(0, 1) == "2")
+            {
+                type = "1";
+            }
+            if (type.Substring(0, 1) == "3")
+            {
+                type = "2";
+            }
+            if (type.Substring(0, 1) == "4")
+            {
+                type = "3";
+            }
+            return type;
+        }
+
+        // 6 ---------------------------------------Bring back info on vehicle---------------------------------------
+        // --------------------------------Parking Receipt-------------------------------------
+
+        public static string FindInfoOnVehicle(string regNumber)
+        {
+            return regNumber;
+        }
     }
 }
-
-        
