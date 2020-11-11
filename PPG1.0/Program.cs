@@ -117,7 +117,7 @@ namespace PPG1._0
                                                             Error();
                                                             break;
                                                         }
-                                                        Console.WriteLine("Sorry all spots are full");
+                                                        Console.WriteLine("Sorry that spot is full");
                                                         Console.ReadKey();
                                                         break;
                                                     }
@@ -192,7 +192,7 @@ namespace PPG1._0
                                                             Error();
                                                             break;
                                                         }
-                                                        Console.WriteLine("Sorry all spots are full");
+                                                        Console.WriteLine("Sorry that spot is full");
                                                         Console.ReadKey();
                                                         break;
                                                     }
@@ -456,13 +456,13 @@ namespace PPG1._0
                                         {
                                             currentParking = currentParking - 200;
                                         }
-                                        if (currentParking >= 100 || currentParking < 200)
+                                        if (currentParking >= 100 && currentParking < 200)
                                         {
                                             currentParking = currentParking - 100;
                                         }
                                         Console.WriteLine("Vehicle with registration {0} is parked on spot {1}", regNumber, (currentParking + 1));
                                         Console.ReadKey();
-                                        break;
+                                            break;
                                     case 2:
                                         break;
                                 }
@@ -505,11 +505,11 @@ namespace PPG1._0
                                             currentParking = currentParking - 200;
                                         }
                                         else
-                                        if (currentParking >= 100 || currentParking < 200)
+                                        if (currentParking >= 100 && currentParking < 200)
                                         {
                                             currentParking = currentParking - 100;
                                         }
-                                        var separate = (info[looper]).Split("/");
+                                        var separate = (info[currentParking]).Split("/");
                                         //---------------- If there is a car in the spot-------------------
                                         if (separate[0] == "4")
                                         {

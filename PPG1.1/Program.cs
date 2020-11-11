@@ -12,15 +12,23 @@ namespace PPG1._1
         public static string type;
         public static string newType;
         public static string newParking;
-        public static string regNumber = "";
+        public static string regNumber;
+        public static string regChecker;
+        public static string illegal = "";
+        public static int regFail;
         public static int a;
         public static string b;
+        public static char c;
+        public static string d;
         public static int index = 0;
+        public static int j;
         public static int looper;
+        public static int counter;
         public static int currentParking;
         public static int newIndex;
         public static int mcParking;
         public static int len;
+        public static int error;
         public static bool check = true;
         public static bool fullCheck = false;
 
@@ -89,15 +97,9 @@ namespace PPG1._1
                                             {
                                                 case 1:
                                                     newIndex = FindNextAvai(looper);
-                                                    if (newIndex == -1)
+                                                    error = NextAvailError(newIndex);
+                                                    if (error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry all spots are full");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     type = "4";
@@ -110,15 +112,9 @@ namespace PPG1._1
                                                     break;
                                                 case 2:
                                                     newIndex = YouChoose(looper);
-                                                    if (newIndex == -1)
+                                                    error = ChooseError(newIndex);
+                                                    if (error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry all spots are full");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     type = "4";
@@ -158,15 +154,9 @@ namespace PPG1._1
                                             {
                                                 case 1:
                                                     newIndex = FindNextAvai(looper);
-                                                    if (newIndex == -1)
+                                                    error = NextAvailError(newIndex);
+                                                    if(error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry all spots are full");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     type = "1";
@@ -185,15 +175,9 @@ namespace PPG1._1
                                                     break;
                                                 case 2:
                                                     newIndex = YouChoose(looper);
-                                                    if (newIndex == -1)
+                                                    error = ChooseError(newIndex);
+                                                    if (error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry all spots are full");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     type = "1";
@@ -261,28 +245,16 @@ namespace PPG1._1
                                                 case 1:
                                                     looper = 4;
                                                     currentParking = SearchVehicle(looper);
-                                                    if (currentParking == -1)
+                                                    error = SearchError(currentParking);
+                                                    if (error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry We could not find your vehicle");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     looper = 4;
                                                     newIndex = ParkingSpotChecker(looper);
-                                                    if (newIndex == -1)
+                                                    error = ChooseError(newIndex);
+                                                    if (error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry that spot is taken");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     type = "4";
@@ -321,28 +293,16 @@ namespace PPG1._1
                                                 case 1:
                                                     looper = 1;
                                                     mcParking = SearchVehicle(looper);
-                                                    if (mcParking == -1)
+                                                    error = SearchError(mcParking);
+                                                    if (error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry We could not find your vehicle");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     looper = 1;
                                                     newIndex = ParkingSpotChecker(looper);
-                                                    if (newIndex == -1)
+                                                    error = ChooseError(newIndex);
+                                                    if (error == -2)
                                                     {
-                                                        if (check == false)
-                                                        {
-                                                            Error();
-                                                            break;
-                                                        }
-                                                        Console.WriteLine("Sorry that spot is taken");
-                                                        Console.ReadKey();
                                                         break;
                                                     }
                                                     Console.WriteLine(info[1]);
@@ -441,22 +401,16 @@ namespace PPG1._1
                                 {
                                     case 1:
                                         currentParking = SearchVehicle(looper);
-                                        if (check == false || currentParking == -1)
+                                        error = SearchError(currentParking);
+                                        if (error == -2)
                                         {
-                                            if (currentParking == -1)
-                                            {
-                                                Console.WriteLine("Your vehicle was not found, please search again");
-                                                Console.ReadKey();
-                                                break;
-                                            }
-                                            Error();
                                             break;
                                         }
                                         if (currentParking >= 200)
                                         {
                                             currentParking = currentParking - 200;
                                         }
-                                        if (currentParking >= 100 || currentParking < 200)
+                                        if (currentParking >= 100 && currentParking < 200)
                                         {
                                             currentParking = currentParking - 100;
                                         }
@@ -489,15 +443,9 @@ namespace PPG1._1
                                 {
                                     case 1:
                                         currentParking = SearchVehicle(looper);
-                                        if (currentParking == -1)
+                                        error = SearchError(currentParking);
+                                        if (error == -2)
                                         {
-                                            if (check == false)
-                                            {
-                                                Error();
-                                                break;
-                                            }
-                                            Console.WriteLine("Your vehicle was not found, please search again");
-                                            Console.ReadKey();
                                             break;
                                         }
                                         if (currentParking >= 200)
@@ -505,11 +453,11 @@ namespace PPG1._1
                                             currentParking = currentParking - 200;
                                         }
                                         else
-                                        if (currentParking >= 100 || currentParking < 200)
+                                        if (currentParking >= 100 && currentParking < 200)
                                         {
                                             currentParking = currentParking - 100;
                                         }
-                                        var separate = (info[looper]).Split("/");
+                                        var separate = (info[currentParking]).Split("/");
                                         //---------------- If there is a car in the spot-------------------
                                         if (separate[0] == "4")
                                         {
@@ -667,6 +615,7 @@ namespace PPG1._1
             Console.ReadKey();
         }
 
+        //-----------------------------------Error Checker Programs---------------------------
         //------------------------------Bool Checker--------------------------------
 
         public static string Checker(string X)
@@ -684,13 +633,148 @@ namespace PPG1._1
             return X;
         }
 
+        //--------------------------Input Error Methods-------------------------------------
+        public static int NextAvailError(int number)
+        {
+            if (newIndex == -1)
+            {
+                if (check == false)
+                {
+                    if (regFail == -5)
+                    {
+                        Console.ReadKey();
+                        number = -2;
+                        return number;
+                    }
+                    Error();
+                    number = -2;
+                    return number;
+                }
+                Console.WriteLine("Sorry all spots are full");
+                Console.ReadKey();
+                number = -2;
+                return number;
+            }
+            else
+            {
+                return number;
+            }
+        }
+
+        public static int SearchError(int number)
+        {
+            if (currentParking == -1)
+            {
+                if (check == false)
+                {
+                    if(regFail == -5)
+                    {
+                        Console.ReadKey();
+                        number = -2;
+                        return number;
+                    }
+                    Error();
+                    number = -2;
+                    return number;
+                }
+                Console.WriteLine("Sorry We could not find your vehicle");
+                Console.ReadKey();
+                number = -2;
+                return number;
+            }
+            else
+            {
+                return number;
+            }
+        }
+
+        public static int ChooseError(int number)
+        {
+            if (newIndex == -1)
+            {
+                if (check == false)
+                {
+                    if (regFail == -5)
+                    {
+                        Console.ReadKey();
+                        number = -2;
+                        return number;
+                    }
+                    Error();
+                    number = -2;
+                    return number;
+                }
+                Console.WriteLine("Sorry that spot is taken");
+                Console.ReadKey();
+                number = -2;
+                return number;
+            }
+            else
+            {
+                return number;
+            }
+        }
+
+        //------------------------------------------Reg number checker--------------------------------------
+
+        public static string RegErrorCheck()
+        {
+            regNumber = (Console.ReadLine()).ToUpper();
+            var splitter = regNumber.Split();
+            regNumber = string.Join("", splitter);
+            len = regNumber.Length;
+            counter = 0;
+            j = 0;
+            for (index = 0; index < len; index++)
+            {
+                check = false;
+                for (int i = 48; i < 58; i++)
+                {
+                    c = ((char)i);
+                    d = c.ToString();
+                    if(regNumber.Substring(j,1) == d)
+                    {
+                        counter++;
+                        check = true;
+                    }
+                }
+                
+                for (int i = 65; i < 91; i++)
+                {
+                    c = ((char)i);
+                    d = c.ToString();
+                    if (regNumber.Substring(j, 1) == d)
+                    {
+                        counter++;
+                        check = true;
+                    }
+                }
+                j++;
+                if (check == false)
+                {
+                    illegal = illegal + (regNumber.Substring(index, 1));
+                    illegal = illegal + ",";
+                }
+            }
+            if(counter < len)
+            {
+                Console.WriteLine("Sorry the following characters are illegal");
+                var separate = illegal.Split(",");
+                for(index = 0; index < (len - counter); index++)
+                {
+                    Console.Write(" {0}: {1}   ", (index + 1), separate[index]);
+                }
+                regFail = -5;
+                len = len + 10;
+            }
+            return regNumber;
+        }
         //--1--------------------------------------------------------Parking Vehicle Methods-----------------------------------------
         //---------------------Find next spot-----------------------
         public static int FindNextAvai(int looper)
         {
             Console.WriteLine("Please input RegNumber (Max 10 characters)");
-            regNumber = (Console.ReadLine()).ToUpper();
-            len = regNumber.Length;
+            regNumber = RegErrorCheck();
             if (len > 10 || len < 1)
             {
                 looper = -1;
@@ -736,8 +820,7 @@ namespace PPG1._1
         public static int YouChoose(int looper)
         {
             Console.WriteLine("Please input RegNumber (Max 10 characters)");
-            regNumber = (Console.ReadLine()).ToUpper();
-            len = regNumber.Length;
+            regNumber = RegErrorCheck();
             if (len > 10 || len < 1)
             {
                 looper = -1;
@@ -745,9 +828,21 @@ namespace PPG1._1
                 return looper;
             }
             Console.WriteLine("Please input what spot you would like to park in");
+            looper = SpotChecker(looper);
+            return looper;
+        }
+
+        public static int SpotChecker(int looper)
+        {
             X = Console.ReadLine();
             Checker(X);
             x = x - 1;
+            if (x > 99 || x < 0)
+            {
+                looper = -1;
+                check = false;
+                return looper;
+            }
             fullCheck = false;
             if (looper == 4)
             {
@@ -768,21 +863,19 @@ namespace PPG1._1
                     fullCheck = true;
                 }
             }
-            if (fullCheck == false || check == false)
+            if (fullCheck == false)
             {
                 looper = -1;
             }
             return looper;
         }
-
         //--2--------------------------------------------------------Moving Vehicle methods´-----------------------------------------
         //---------------------------------------Move vehicle to chosen spot-----------------------
 
         public static int SearchVehicle(int looper)
         {
             Console.WriteLine("Please input reg number to search");
-            regNumber = (Console.ReadLine()).ToUpper();
-            len = regNumber.Length;
+            regNumber = RegErrorCheck();
             if (len > 10 || len < 1)
             {
                 looper = -1;
@@ -825,7 +918,6 @@ namespace PPG1._1
                     }
                 }
             }
-
             if (fullCheck == false)
             {
                 looper = -1;
@@ -838,34 +930,7 @@ namespace PPG1._1
         public static int ParkingSpotChecker(int looper)
         {
             Console.WriteLine("Please input new spot to move Vehicle");
-            X = Console.ReadLine();
-            Checker(X);
-            x = x - 1;
-            fullCheck = false;
-            if (looper == 4)
-            {
-                string parking = info[x];
-                if (parking.Substring(0, 1) == "0")
-                {
-                    looper = x;
-                    fullCheck = true;
-                }
-            }
-            else
-            if (looper == 1)
-            {
-                string parking = info[x];
-                if (parking.Substring(0, 1) == "1" || parking.Substring(0, 1) == "2" || parking.Substring(0, 1) == "0")
-                {
-                    looper = x;
-                    fullCheck = true;
-                }
-            }
-
-            if (fullCheck == false || check == false)
-            {
-                looper = -1;
-            }
+            looper = SpotChecker(looper);
             return looper;
         }
 
@@ -931,9 +996,10 @@ namespace PPG1._1
         {
             ClearConsole();
             Console.WriteLine("".PadRight(35) + "Map of garage");
-            Console.WriteLine(" O = Empty,  1 = 1 MC, 2 = 2 MC, 3 = Car ");
+            Console.WriteLine(" P###  = Parking number,  O = Empty,  1 = 1 MC, 2 = 2 MC, 3 = Car ");
+            
             Console.Write("".PadRight(5));
-            for (index = 0; index < 83; index++)
+            for (index = 0; index < 102; index++)
             {
                 Console.Write("_");
             }
@@ -941,86 +1007,85 @@ namespace PPG1._1
             Console.Write("| {0}       |", '\u2193');
             for (index = 0; index < 16; index++)
             {
-                string type = info[index];
-                type = TypeCast(type);
-                type = ((index + 1).ToString()) + "-" + type.ToString();
-                Console.Write(type);
-                Console.Write("|");
+                ParkingEdit(index);
             }
-            Console.WriteLine("\n\n");
-            Console.Write("|  ");
+            Console.Write("".PadRight(8) + "|");
+            Console.WriteLine("\n|" + "".PadRight(105) + "|\n|" + "".PadRight(105) + "|");
+            Console.Write("|   |");
             for (index = 16; index < 33; index++)
             {
-                string type = info[index];
-                type = TypeCast(type);
-                type = ((index + 1).ToString()) + "-" + type.ToString();
-                Console.Write(type);
-                Console.Write("|");
+                ParkingEdit(index);
             }
             Console.WriteLine();
-            Console.Write("|  ");
+            Console.Write("|   |");
             for (index = 33; index < 50; index++)
             {
-                string type = info[index];
-                type = TypeCast(type);
-                type = ((index + 1).ToString()) + "-" + type.ToString();
-                Console.Write(type);
-                Console.Write("|");
+                ParkingEdit(index);
             }
-            Console.WriteLine("\n\n");
-            Console.Write("|  ");
+            Console.WriteLine("\n|" + "".PadRight(105) + "|\n|" + "".PadRight(105) + "|");
+            Console.Write("|   |");
             for (index = 50; index < 67; index++)
             {
-                string type = info[index];
-                type = TypeCast(type);
-                type = ((index + 1).ToString()) + "-" + type.ToString();
-                Console.Write(type);
-                Console.Write("|");
+                ParkingEdit(index);
             }
             Console.WriteLine();
-            Console.Write("|  ");
+            Console.Write("|   |");
             for (index = 67; index < 84; index++)
             {
-                string type = info[index];
-                type = TypeCast(type);
-                type = ((index + 1).ToString()) + "-" + type.ToString();
-                Console.Write(type);
-                Console.Write("|");
+                ParkingEdit(index);
             }
-            Console.WriteLine("\n\n");
-            Console.Write("|  ");
+            Console.WriteLine("\n|" + "".PadRight(105) + "|\n|" + "".PadRight(105) + "|");
+            Console.Write("|   |");
             for (index = 84; index < 100; index++)
             {
-                string type = info[index];
-                type = TypeCast(type);
-                type = ((index + 1).ToString()) + "-" + type.ToString();
-                Console.Write(type);
-                Console.Write("|");
+                ParkingEdit(index);
             }
-            Console.WriteLine(" {0} ", '\u2193');
-            for (index = 0; index < 83; index++)
+            Console.Write(" {0}  |\n", '\u2193');
+            Console.Write("|");
+            for (index = 0; index < 101; index++)
             {
+                Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write("_");
             }
+            Console.Write("".PadRight(4) + "|");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine(" Green = Empty, Yellow = half full, Red = Full");
         }
 
+        //-------------------------------parking colour and compiler----------------------------
+
+        public static int ParkingEdit(int index)
+        {
+            string type = info[index];
+            type = TypeCast(type);
+            type = "P" + ((index + 1).ToString()) + "-" + type.ToString();
+            Console.Write(type);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("|");
+            return index;
+        }
         public static string TypeCast(string type)
         {
             if (type.Substring(0, 1) == "0")
             {
                 type = "O";
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
             }
             if (type.Substring(0, 1) == "1" || type.Substring(0, 1) == "2")
             {
                 type = "1";
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
             }
             if (type.Substring(0, 1) == "3")
             {
                 type = "2";
+                Console.ForegroundColor = ConsoleColor.DarkRed;
             }
             if (type.Substring(0, 1) == "4")
             {
                 type = "3";
+                Console.ForegroundColor = ConsoleColor.DarkRed;
             }
             return type;
         }
