@@ -906,7 +906,7 @@ namespace PPG1._1
             return looper;
         }
 
-        //-------------------------------------You choose the spot yourself--------------------------
+        //-------------------------------------You choose the spot yourself----------------------------------------
         public static int YouChoose(int looper)
         {
             Console.WriteLine(" Please input RegNumber (Max 10 characters)");
@@ -978,7 +978,7 @@ namespace PPG1._1
             {
                 for (index = 0; index < info.Length; index++)
                 {
-                    string parking = info[x];
+                    string parking = info[index];
                     var separate = info[index].Split("/");
                     if (separate[1] == regNumber && parking.Substring(0, 1) == "4")
                     {
@@ -1043,12 +1043,12 @@ namespace PPG1._1
                 index++;
                 space = EmptyPark(space);
                 b = (index + 1).ToString("D3");
-                a = 15 - (space.Length);
+                a = 21 - (space.Length);
                 Console.Write("".PadRight(a) + " {0}. Contents {1}", b, space);
                 index++;
                 space = EmptyPark(space);
                 b = (index + 1).ToString("D3");
-                a = 15 - (space.Length);
+                a = 21 - (space.Length);
                 Console.Write("".PadRight(a) + " {0}. Contents {1}", b, space);
                 Console.WriteLine();
             }

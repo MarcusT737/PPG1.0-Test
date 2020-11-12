@@ -622,6 +622,11 @@ namespace PPG1._0
             if (check)
             {
                 x = int.Parse(X);
+                if(x < 1 || x > 100)
+                {
+                    x = 0;
+                    return X;
+                }
             }
             else
             {
@@ -694,6 +699,12 @@ namespace PPG1._0
             X = Console.ReadLine();
             Checker(X);
             x = x - 1;
+            if(x < 0)
+            {
+                looper = -1;
+                check = false;
+                return looper;
+            }
             fullCheck = false;
             if (looper == 4)
             {
@@ -787,6 +798,12 @@ namespace PPG1._0
             X = Console.ReadLine();
             Checker(X);
             x = x - 1;
+            if (x < 0)
+            {
+                looper = -1;
+                check = false;
+                return looper;
+            }
             fullCheck = false;
             if (looper == 4)
             {
