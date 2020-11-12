@@ -1057,7 +1057,7 @@ namespace PPG1._1
             Console.ReadKey();
         }
 
-        //-----------------------------------Turn parking to empty------------------------------------------
+        //-----------------------------------Turn parking to contents------------------------------------------
 
         public static string EmptyPark(string space)
         {
