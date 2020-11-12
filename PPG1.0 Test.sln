@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PPG1.0", "PPG1.0\PPG1.0.csproj", "{3223E22B-9E52-4DBE-BE49-BF8960C98648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPG1.1", "PPG1.1\PPG1.1.csproj", "{B1D1DEDC-688B-4534-9008-606FEA59A718}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PPG1.1", "PPG1.1\PPG1.1.csproj", "{B1D1DEDC-688B-4534-9008-606FEA59A718}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

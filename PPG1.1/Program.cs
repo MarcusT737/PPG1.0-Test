@@ -15,11 +15,14 @@ namespace PPG1._1
         public static string regNumber;
         public static string regChecker;
         public static string illegal = "";
+        public static string space = "";
         public static int regFail;
         public static int a;
         public static string b;
         public static char c;
         public static string d;
+        public static string e;
+        public static int f;
         public static int index = 0;
         public static int j;
         public static int looper;
@@ -31,12 +34,18 @@ namespace PPG1._1
         public static int error;
         public static bool check = true;
         public static bool fullCheck = false;
+        public static DateTime checkInLocal;
+        public static string checkIn;
+        public static DateTime checkOutLocal;
+        public static string checkOut;
+        public static int dateStamp;
+        public static string totalTime;
 
         public static void Main()
         {
             for (index = 0; index < info.Length; index++)
             {
-                info[index] = "0//";
+                info[index] = "0////";
             }
             bool running = true;
             while (running)
@@ -102,13 +111,7 @@ namespace PPG1._1
                                                     {
                                                         break;
                                                     }
-                                                    type = "4";
-                                                    var separate = (info[newIndex]).Split("/");
-                                                    separate[0] = type;
-                                                    separate[1] = regNumber;
-                                                    info[newIndex] = string.Join("/", separate);
-                                                    Console.WriteLine("You car with registration number {0} has been parked on spot {1}", regNumber, (newIndex + 1));
-                                                    Console.ReadKey();
+                                                    parkCar();
                                                     break;
                                                 case 2:
                                                     newIndex = YouChoose(looper);
@@ -117,13 +120,7 @@ namespace PPG1._1
                                                     {
                                                         break;
                                                     }
-                                                    type = "4";
-                                                    separate = (info[newIndex]).Split("/");
-                                                    separate[0] = type;
-                                                    separate[1] = regNumber;
-                                                    info[newIndex] = string.Join("/", separate);
-                                                    Console.WriteLine("You car with registration number {0} has been parked on spot {1}", regNumber, (newIndex + 1));
-                                                    Console.ReadKey();
+                                                    parkCar();
                                                     break;
                                                 case 3:
                                                     break;
@@ -159,19 +156,7 @@ namespace PPG1._1
                                                     {
                                                         break;
                                                     }
-                                                    type = "1";
-                                                    var separate = (info[newIndex]).Split("/");
-                                                    mcParking = 1;
-                                                    if (separate[1].Length > 0)
-                                                    {
-                                                        mcParking = 2;
-                                                        type = "3";
-                                                    }
-                                                    separate[0] = type;
-                                                    separate[mcParking] = regNumber;
-                                                    info[newIndex] = string.Join("/", separate);
-                                                    Console.WriteLine("You Motorbike with registration number {0} has been parked on spot {1}", regNumber, (newIndex + 1));
-                                                    Console.ReadKey();
+                                                    parkBike();
                                                     break;
                                                 case 2:
                                                     newIndex = YouChoose(looper);
@@ -180,19 +165,7 @@ namespace PPG1._1
                                                     {
                                                         break;
                                                     }
-                                                    type = "1";
-                                                    separate = (info[newIndex]).Split("/");
-                                                    mcParking = 1;
-                                                    if (separate[1].Length > 0)
-                                                    {
-                                                        mcParking = 2;
-                                                        type = "3";
-                                                    }
-                                                    separate[0] = type;
-                                                    separate[mcParking] = regNumber;
-                                                    info[newIndex] = string.Join("/", separate);
-                                                    Console.WriteLine("You Motorbike with registration number {0} has been parked on spot {1}", regNumber, (newIndex + 1));
-                                                    Console.ReadKey();
+                                                    parkBike();
                                                     break;
                                                 case 3:
                                                     break;
@@ -258,10 +231,14 @@ namespace PPG1._1
                                                         break;
                                                     }
                                                     type = "4";
-                                                    info[currentParking] = "0//";
-                                                    var separate = (info[newIndex]).Split("/");
+                                                    var separate = (info[currentParking]).Split("/");
+                                                    checkIn = separate[3];
+                                                    info[currentParking] = string.Join("/", separate);
+                                                    info[currentParking] = "0////";
+                                                    separate = (info[newIndex]).Split("/");
                                                     separate[0] = type;
                                                     separate[1] = regNumber;
+                                                    separate[3] = checkIn;
                                                     info[newIndex] = string.Join("/", separate);
                                                     Console.WriteLine("You car with registration number {0} has been moved to the new spot {1}", regNumber, (newIndex + 1));
                                                     Console.ReadKey();
@@ -305,61 +282,72 @@ namespace PPG1._1
                                                     {
                                                         break;
                                                     }
-                                                    Console.WriteLine(info[1]);
+                                                    // If the bike is on the right side
                                                     if (mcParking >= 200)
                                                     {
                                                         mcParking = mcParking - 200;
                                                         var separateNew = (info[newIndex]).Split("/");
                                                         var separateOld = (info[mcParking]).Split("/");
                                                         type = "1";
+                                                        checkIn = separateOld[4];
                                                         separateOld[0] = type;
                                                         separateOld[2] = "";
+                                                        separateOld[4] = "";
                                                         if (separateNew[0] == "1" || separateNew[0] == "2")
                                                         {
                                                             type = "3";
                                                             if (separateNew[1].Length > 0)
                                                             {
                                                                 separateNew[2] = regNumber;
+                                                                separateNew[4] = checkIn;
                                                             }
                                                             else
                                                                 if (separateNew[2].Length > 0)
                                                             {
                                                                 separateNew[1] = regNumber;
+                                                                separateNew[3] = checkIn;
                                                             }
                                                         }
                                                         if (separateNew[0] == "0")
                                                         {
                                                             separateNew[0] = "1";
                                                             separateNew[1] = regNumber;
+                                                            separateNew[3] = checkIn;
                                                         }
                                                         info[newIndex] = string.Join("/", separateNew);
                                                         info[mcParking] = string.Join("/", separateOld);
                                                     }
+                                                    // If the bike is on the left side
                                                     if (mcParking < 200 && mcParking >= 100)
                                                     {
                                                         mcParking = mcParking - 100;
                                                         var separateNew = (info[newIndex]).Split("/");
                                                         var separateOld = (info[mcParking]).Split("/");
                                                         type = "2";
+                                                        checkIn = separateOld[3];
                                                         separateOld[0] = type;
                                                         separateOld[1] = "";
+                                                        separateOld[3] = "";
                                                         if (separateNew[0] == "1" || separateNew[0] == "2")
                                                         {
                                                             type = "3";
                                                             if (separateNew[1].Length > 0)
                                                             {
                                                                 separateNew[2] = regNumber;
+                                                                separateNew[4] = checkIn;
                                                             }
                                                             else
                                                                 if (separateNew[2].Length > 0)
                                                             {
                                                                 separateNew[1] = regNumber;
+                                                                separateNew[3] = checkIn;
                                                             }
                                                         }
                                                         if (separateNew[0] == "0")
                                                         {
                                                             separateNew[0] = "1";
                                                             separateNew[1] = regNumber;
+                                                            separateNew[3] = checkIn;
                                                         }
                                                         info[newIndex] = string.Join("/", separateNew);
                                                         info[mcParking] = string.Join("/", separateOld);
@@ -461,9 +449,14 @@ namespace PPG1._1
                                         //---------------- If there is a car in the spot-------------------
                                         if (separate[0] == "4")
                                         {
+                                            checkIn = separate[3];
+                                            totalTime = ExitTime(checkIn);
                                             separate[0] = "0";
                                             separate[1] = "";
-                                            Console.WriteLine("Your car with regnumber {0} has been returned from parking {1}", regNumber, (currentParking + 1));
+                                            separate[3] = "";
+                                            Console.WriteLine(" Your car with regnumber {0} has been returned from parking {1}", regNumber, (currentParking + 1));
+                                            Console.WriteLine("\n Check in time was {0}, and check out time was {1}", checkIn, checkOut);
+                                            Console.WriteLine("\n Total time spent in garage is {0}", totalTime);
                                         }
                                         else
                                         if (separate[0] == "3" || separate[0] == "2" || separate[0] == "1")
@@ -471,16 +464,26 @@ namespace PPG1._1
                                             //-------------If there is only 1 MC on parking--------------------
                                             if (separate[0] == "2" || separate[0] == "1")
                                             {
+                                                
+                                                
                                                 separate[0] = "0";
                                                 if (separate[1] == regNumber)
                                                 {
                                                     separate[1] = "";
+                                                    checkIn = separate[3];
+                                                    totalTime = ExitTime(checkIn);
+                                                    separate[3] = "";
                                                 }
                                                 if (separate[2] == regNumber)
                                                 {
                                                     separate[2] = "";
+                                                    checkIn = separate[4];
+                                                    totalTime = ExitTime(checkIn);
+                                                    separate[4] = "";
                                                 }
-                                                Console.WriteLine("Your Motorcycle with regnumber {0} has been returned from parking {1}", regNumber, (currentParking + 1));
+                                                Console.WriteLine(" Your Motorcycle with regnumber {0} has been returned from parking {1}", regNumber, (currentParking + 1));
+                                                Console.WriteLine("\n Check in time was {0}, and check out time was {1}", checkIn, checkOut);
+                                                Console.WriteLine("\n Total time spent in garage is {0}", totalTime);
                                             }
                                             //---------------If there are 2 MCs on parking--------
                                             if (separate[0] == "3")
@@ -489,14 +492,22 @@ namespace PPG1._1
                                                 {
                                                     separate[0] = "2";
                                                     separate[1] = "";
+                                                    checkIn = separate[3];
+                                                    totalTime = ExitTime(checkIn);
+                                                    separate[3] = "";
                                                 }
                                                 if (separate[2] == regNumber)
                                                 {
                                                     separate[0] = "1";
                                                     separate[2] = "";
+                                                    checkIn = separate[4];
+                                                    totalTime = ExitTime(checkIn);
+                                                    separate[4] = "";
                                                 }
 
-                                                Console.WriteLine("Your Motorcycle with regnumber {0} has been returned from parking {1}", regNumber, (currentParking + 1));
+                                                Console.WriteLine(" Your Motorcycle with regnumber {0} has been returned from parking {1}", regNumber, (currentParking + 1));
+                                                Console.WriteLine("\n Check in time was {0}, and check out time was {1}", checkIn, checkOut);
+                                                Console.WriteLine("\n Total time spent in garage is {0}", totalTime);
                                             }
                                         }
                                         info[currentParking] = string.Join("/", separate);
@@ -527,11 +538,9 @@ namespace PPG1._1
                                 {
                                     case 1:
                                         PrintListOfSpaces();
-                                        Console.ReadKey();
                                         break;
                                     case 2:
                                         ParkingMap();
-                                        Console.ReadKey();
                                         break;
                                     case 3:
                                         break;
@@ -611,7 +620,7 @@ namespace PPG1._1
 
         public static void Error()
         {
-            Console.WriteLine("Sorry Wrong input, please try again");
+            Console.WriteLine(" Sorry Wrong input, please try again");
             Console.ReadKey();
         }
 
@@ -646,11 +655,16 @@ namespace PPG1._1
                         number = -2;
                         return number;
                     }
+                    if(f == -5)
+                    {
+                        number = -2;
+                        return number;
+                    }
                     Error();
                     number = -2;
                     return number;
                 }
-                Console.WriteLine("Sorry all spots are full");
+                Console.WriteLine(" Sorry all spots are full");
                 Console.ReadKey();
                 number = -2;
                 return number;
@@ -673,11 +687,16 @@ namespace PPG1._1
                         number = -2;
                         return number;
                     }
+                    if (f == -5)
+                    {
+                        number = -2;
+                        return number;
+                    }
                     Error();
                     number = -2;
                     return number;
                 }
-                Console.WriteLine("Sorry We could not find your vehicle");
+                Console.WriteLine(" Sorry We could not find your vehicle");
                 Console.ReadKey();
                 number = -2;
                 return number;
@@ -700,11 +719,16 @@ namespace PPG1._1
                         number = -2;
                         return number;
                     }
+                    if (f == -5)
+                    {
+                        number = -2;
+                        return number;
+                    }
                     Error();
                     number = -2;
                     return number;
                 }
-                Console.WriteLine("Sorry that spot is taken");
+                Console.WriteLine(" Sorry that spot is taken");
                 Console.ReadKey();
                 number = -2;
                 return number;
@@ -713,6 +737,49 @@ namespace PPG1._1
             {
                 return number;
             }
+        }
+
+        //-------------------------------------ParkMethod-----------------------------------------------
+        //--------------------------------------Park Car--------------------------------------------------
+
+        public static void parkCar()
+        {
+            type = "4";
+            checkIn = CheckInTime(checkIn);
+            var separate = (info[newIndex]).Split("/");
+            separate[0] = type;
+            separate[1] = regNumber;
+            separate[3] = checkIn;
+            info[newIndex] = string.Join("/", separate);
+            Console.WriteLine("You car with registration number {0} has been parked on spot {1}", regNumber, (newIndex + 1));
+            Console.WriteLine("Time of check in is {0}", checkIn);
+            Console.ReadKey();
+            return;
+        }
+
+        //--------------------------------------Park Bike--------------------------------------------------
+
+        public static void parkBike()
+        {
+            type = "1";
+            checkIn = CheckInTime(checkIn);
+            mcParking = 1;
+            dateStamp = 3;
+            var separate = (info[newIndex]).Split("/");
+            if (separate[1].Length > 0)
+            {
+                mcParking = 2;
+                dateStamp = 4;
+                type = "3";
+            }
+            separate[0] = type;
+            separate[mcParking] = regNumber;
+            separate[dateStamp] = checkIn;
+            info[newIndex] = string.Join("/", separate);
+            Console.WriteLine("You Motorbike with registration number {0} has been parked on spot {1}", regNumber, (newIndex + 1));
+            Console.WriteLine("Time of check in is {0}", checkIn);
+            Console.ReadKey();
+            return;
         }
 
         //------------------------------------------Reg number checker--------------------------------------
@@ -758,23 +825,46 @@ namespace PPG1._1
             }
             if(counter < len)
             {
-                Console.WriteLine("Sorry the following characters are illegal");
+                Console.WriteLine(" Sorry the following characters are illegal");
                 var separate = illegal.Split(",");
                 for(index = 0; index < (len - counter); index++)
                 {
                     Console.Write(" {0}: {1}   ", (index + 1), separate[index]);
                 }
+                Console.WriteLine("\n Please try again");
                 regFail = -5;
-                len = len + 10;
+                len = -1;
             }
             return regNumber;
         }
+
+        //-----------------------------------------Reg duplicate checker----------------------------------------
+
+        public static string RegDuplicate(string regNumber)
+        {
+            for (index = 0; index < info.Length; index++)
+            {
+                e = info[index];
+                var splitter = e.Split("/");
+                if (splitter[1] == regNumber || splitter[2] == regNumber)
+                {
+                    Console.WriteLine(" Sorry this Registration plate alreay exists.\n The Police have been called to your location.\n Have a great day");
+                    Console.ReadKey();
+                    len = -1;
+                    f = -5;
+                    break;
+                }
+            }
+            return regNumber;
+        }
+
         //--1--------------------------------------------------------Parking Vehicle Methods-----------------------------------------
         //---------------------Find next spot-----------------------
         public static int FindNextAvai(int looper)
         {
-            Console.WriteLine("Please input RegNumber (Max 10 characters)");
+            Console.WriteLine(" Please input RegNumber (Max 10 characters)");
             regNumber = RegErrorCheck();
+            regNumber = RegDuplicate(regNumber);
             if (len > 10 || len < 1)
             {
                 looper = -1;
@@ -819,15 +909,16 @@ namespace PPG1._1
         //-------------------------------------You choose the spot yourself--------------------------
         public static int YouChoose(int looper)
         {
-            Console.WriteLine("Please input RegNumber (Max 10 characters)");
+            Console.WriteLine(" Please input RegNumber (Max 10 characters)");
             regNumber = RegErrorCheck();
+            regNumber = RegDuplicate(regNumber);
             if (len > 10 || len < 1)
             {
                 looper = -1;
                 check = false;
                 return looper;
             }
-            Console.WriteLine("Please input what spot you would like to park in");
+            Console.WriteLine(" Please input what spot you would like to park in");
             looper = SpotChecker(looper);
             return looper;
         }
@@ -874,7 +965,7 @@ namespace PPG1._1
 
         public static int SearchVehicle(int looper)
         {
-            Console.WriteLine("Please input reg number to search");
+            Console.WriteLine(" Please input reg number to search");
             regNumber = RegErrorCheck();
             if (len > 10 || len < 1)
             {
@@ -929,7 +1020,7 @@ namespace PPG1._1
 
         public static int ParkingSpotChecker(int looper)
         {
-            Console.WriteLine("Please input new spot to move Vehicle");
+            Console.WriteLine(" Please input new spot to move Vehicle");
             looper = SpotChecker(looper);
             return looper;
         }
@@ -941,53 +1032,64 @@ namespace PPG1._1
         public static void PrintListOfSpaces()
         {
             ClearConsole();
-            Console.WriteLine("Here is a list of all the parking spaces");
-            Console.WriteLine("Guide: 0 = empty, 1 = One Mc on left side, 2 = One MC on right side; 3 = Two MCS, 4 = Car in Parking");
+            Console.WriteLine(" Here is a list of all the parking spaces with registrations attached");
+            Console.WriteLine(" Guide: Empty = empty, 1 = One Mc on left side, 2 = One MC on right side; 3 = Two MCS, 4 = Car in Parking");
             Console.WriteLine();
-            EmptyPark();
-
             for (index = 0; index < info.Length - 3; index++)
             {
                 b = (index + 1).ToString("D3");
-                //Padding(b);
-                Console.Write(" {0}. Contains {1}", b, info[index]);
+                space = EmptyPark(space);
+                Console.Write(" {0}. Contents {1}", b, space);
                 index++;
+                space = EmptyPark(space);
                 b = (index + 1).ToString("D3");
-                a = 15 - (info[index].Length);
-                Console.Write("".PadRight(a) + " {0}. Contains {1}", b, info[index]);
+                a = 15 - (space.Length);
+                Console.Write("".PadRight(a) + " {0}. Contents {1}", b, space);
                 index++;
+                space = EmptyPark(space);
                 b = (index + 1).ToString("D3");
-                a = 15 - (info[index].Length);
-                Console.Write("".PadRight(a) + " {0}. Contains {1}", b, info[index]);
+                a = 15 - (space.Length);
+                Console.Write("".PadRight(a) + " {0}. Contents {1}", b, space);
                 Console.WriteLine();
             }
-            Console.Write(" {0}. Contains {1}", (index + 1), info[index]);
-            RedoArray();
+            EmptyPark(space);
+            Console.Write(" {0}. Contains {1}", (index + 1), space);
+            Console.ReadKey();
         }
 
         //-----------------------------------Turn parking to empty------------------------------------------
 
-        public static int EmptyPark()
+        public static string EmptyPark(string space)
         {
-            for (index = 0; index < info.Length; index++)
-                if (info[index] == "0//")
-                {
-                    info[index] = "0/Empty";
-                }
-            index = 0;
-            return index;
-        }
-
-        //-----------------------------------------Repopulate Array--------------------------------------
-        public static int RedoArray()
-        {
-            for (index = 0; index < info.Length; index++)
-                if (info[index] == "0/Empty")
-                {
-                    info[index] = "0//";
-                }
-            index = 0;
-            return index;
+            space = info[index];
+            var separateParking = space.Split("/");
+            if (separateParking[0] == "0")
+            {
+                space = "Empty";
+                return space;
+            }
+            if(separateParking[0] == "1")
+            {
+                space = separateParking[0] + "," + separateParking[1];
+                return space;
+            }
+            if (separateParking[0] == "2")
+            {
+                space = separateParking[0] + "," + separateParking[2];
+                return space;
+            }
+            if (separateParking[0] == "3")
+            {
+                space = separateParking[0] + "," + separateParking[1] + "," + separateParking[2];
+                return space;
+            }
+            if (separateParking[0] == "4")
+            {
+                space = separateParking[0] + "," + separateParking[1];
+                return space;
+            }
+            space = string.Join("/", separateParking);
+            return space;
         }
 
         //----------------------------------------Parking Map----------------------------------------
@@ -995,8 +1097,8 @@ namespace PPG1._1
         public static void ParkingMap()
         {
             ClearConsole();
-            Console.WriteLine("".PadRight(35) + "Map of garage");
-            Console.WriteLine(" P###  = Parking number,  O = Empty,  1 = 1 MC, 2 = 2 MC, 3 = Car ");
+            Console.WriteLine("".PadRight(55) + "Map of garage");
+            Console.WriteLine("".PadRight(25) + "P###  = Parking number,  O = Empty,  1 = 1 MC, 2 = 2 MC, 3 = Car ");
             
             Console.Write("".PadRight(5));
             for (index = 0; index < 102; index++)
@@ -1050,7 +1152,8 @@ namespace PPG1._1
             Console.Write("".PadRight(4) + "|");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine(" Green = Empty, Yellow = half full, Red = Full");
+            Console.WriteLine("".PadRight(30) + "Green = Empty, Yellow = half full, Red = Full");
+            Console.ReadKey();
         }
 
         //-------------------------------parking colour and compiler----------------------------
@@ -1096,6 +1199,35 @@ namespace PPG1._1
         public static string FindInfoOnVehicle(string regNumber)
         {
             return regNumber;
+        }
+
+        //---------------------------------Timestamp Methods--------------------------------------
+        //---------------------------------Check in time-----------------------------------------
+        public static string CheckInTime(string checkIn)
+        {
+            checkInLocal = DateTime.Now;
+            checkIn = checkInLocal.ToString();
+            return checkIn;
+        }
+
+        //---------------------------------Check Out time-----------------------------------------
+        public static string CheckOutTime(string checkOut)
+        {
+            checkOutLocal = DateTime.Now;
+            checkOut = checkOutLocal.ToString();
+            return checkOut;
+        }
+
+        //--------------------------------Return Vehicle Time Stamp--------------------------------------
+
+        public static string ExitTime(string totalTime)
+        {
+            checkOut = CheckOutTime(checkOut);
+            DateTime checkInLocal = DateTime.Parse(checkIn);
+            DateTime checkOutLocal = DateTime.Parse(checkOut);
+            TimeSpan timeSpent = checkOutLocal - checkInLocal;
+            totalTime = timeSpent.ToString();
+            return totalTime;
         }
     }
 }

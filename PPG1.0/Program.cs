@@ -345,7 +345,6 @@ namespace PPG1._0
                                                         Console.ReadKey();
                                                         break;
                                                     }
-                                                    Console.WriteLine(info[1]);
                                                     if (mcParking >= 200)
                                                     {
                                                         mcParking = mcParking - 200;
