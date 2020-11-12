@@ -549,7 +549,6 @@ namespace PPG1._1
                                     case 3:
                                         break;
                                 }
-
                             }
                             else
                             {
@@ -573,7 +572,7 @@ namespace PPG1._1
                                         FindInfoOnVehicle();
                                         ExitTime();
                                         ClearConsole();
-                                        Console.WriteLine("".PadRight(5) + " Thank you for using our automatic ticketing service\n" + "".PadRight(6) + " Your {0} has been parked on Parking Number {1}\n" + "".PadRight(6) + " The registration of your {0} is {2}\n" + "".PadRight(7) + " Check in was {3}\n" + "".PadRight(7) + " Current time is {4}\n" + "".PadRight(7) + " Time passed is {5}", type, (currentParking + 1), regNumber, checkIn, checkOut, totalTime);
+                                        Console.WriteLine("".PadRight(5) + " Thank you for using our automatic ticketing service\n" + "".PadRight(6) + " Your {0} has been parked on Parking Number {1}\n" + "".PadRight(6) + " The registration of your {0} is {2}\n" + "".PadRight(7) + " Check in time was {3}\n" + "".PadRight(7) + " Current time is {4}\n" + "".PadRight(7) + " Time passed is {5}", type, (currentParking + 1), regNumber, checkIn, checkOut, totalTime);
                                         Console.ReadKey();
                                         break;
                                     case 2:
